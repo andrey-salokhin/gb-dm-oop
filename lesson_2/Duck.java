@@ -1,4 +1,4 @@
-public class Duck extends Animal implements Soundable, flyable{
+public class Duck extends Animal implements Soundable, flyable, swimable{
     public Duck(String name, String owner) {
         super(name, owner);
     }
@@ -11,5 +11,9 @@ public class Duck extends Animal implements Soundable, flyable{
     @Override
     public void fly() {
         System.out.println(getClass().getName() + " is flying");
+    }
+
+    @Override
+    public void swim() {
     }
 }

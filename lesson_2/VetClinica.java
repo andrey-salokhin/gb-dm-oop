@@ -28,6 +28,37 @@ public class VetClinica {
         return resultAnimals;
     }
 
+    public List<Animal> getSwimmingAnimals(){
+        List<Animal> resultAnimals = new ArrayList<>();
+        for (Animal animal: animals) {
+            if(animal instanceof swimable){
+                resultAnimals.add(animal);
+            }
+        }
+        return resultAnimals;
+    }
+
+    public List<Animal> getSoundingAnimals(){
+        List<Animal> resultAnimals = new ArrayList<>();
+        for (Animal animal: animals) {
+            if(animal instanceof Soundable){
+                resultAnimals.add(animal);
+            }
+        }
+        return resultAnimals;
+    }
+
+
+    public List<Animal> getRunningAnimals(){
+        List<Animal> resultAnimals = new ArrayList<>();
+        for (Animal animal: animals) {
+            if(animal instanceof runnable){
+                resultAnimals.add(animal);
+            }
+        }
+        return resultAnimals;
+    }
+
     /*public List<flyable> getFlyingAnimals(){
         List<flyable> resultAnimals = new ArrayList<>();
         for (Animal animal: animals) {
