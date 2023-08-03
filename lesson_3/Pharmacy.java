@@ -9,8 +9,15 @@ public class Pharmacy implements Iterable<Component>, Comparable<Pharmacy>, Comp
     // public class Pharmacy{
     // private int index;
     private List<Component> components;
+    private static int number;
+    private int index;
+
+    static {
+        Pharmacy.number = 0;
+    }
 
     public Pharmacy() {
+        this.index = ++Pharmacy.number;
         this.components = new ArrayList<>();
         // this.index = 0;
     }
@@ -32,10 +39,18 @@ public class Pharmacy implements Iterable<Component>, Comparable<Pharmacy>, Comp
         return power;
     }
 
+    private String getPharmacyNames() {
+        String names = "";
+        for (Component component : components) {
+            names += component.getName();
+        }
+        return names;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s Состав: %s, сила: %s\n", getClass().getSimpleName(), this.components,
-                this.getPharmacyPower());
+        return String.format("%s Состав: %s, сила: %s, номер: %s\n", getClass().getSimpleName(), this.components,
+                this.getPharmacyPower(), index);
     }
 
     @Override
@@ -49,7 +64,8 @@ public class Pharmacy implements Iterable<Component>, Comparable<Pharmacy>, Comp
             return 10;
         else if (this.getPharmacyPower() < o.getPharmacyPower())
             return -10;
-        return 0;
+        else
+            return this.getPharmacyNames().compareTo(o.getPharmacyNames());
     }
 
     @Override
@@ -61,6 +77,32 @@ public class Pharmacy implements Iterable<Component>, Comparable<Pharmacy>, Comp
         else if (o1.getPharmacyPower() < o2.getPharmacyPower())
             return -10;
         return 0;
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Pharmacy pharmacy = (Pharmacy) obj;
+
+        if (pharmacy.getComponents().size() != getComponents().size()) {
+            return false;
+        }
+
+        for (int i = 0; i < components.size(); i++) {
+            if (!pharmacy.getComponents().get(i).equals(components.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
 
     }
 
@@ -83,5 +125,14 @@ public class Pharmacy implements Iterable<Component>, Comparable<Pharmacy>, Comp
 
     // };
     // }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + getPharmacyPower();
+        result = prime * result + ((getPharmacyNames() == null) ? 0 : getPharmacyNames().hashCode());
+        return result;
+    }
 
 }
